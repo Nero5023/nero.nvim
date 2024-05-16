@@ -9,6 +9,8 @@ imap jj <Esc>
 map H ^
 map L $
 
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <C-^>
 
 " cmd+v works on neovide
 if exists("g:neovide")
@@ -20,3 +22,4 @@ if exists("g:neovide")
   vmap <D-c> "+y<CR>
 
 endif
+
