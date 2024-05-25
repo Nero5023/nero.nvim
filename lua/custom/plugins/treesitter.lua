@@ -1,10 +1,9 @@
-return {
+return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   keys = {
     { '<c-s>', desc = 'Increment selection' },
     { '<bs>', desc = 'Decrement selection', mode = 'x' },
   },
-  'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
     ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python', 'rust' },
@@ -69,7 +68,6 @@ return {
     },
   },
 }
-
 
 -- CONFIGS FOR nvim-treesitter-textobjects
 
