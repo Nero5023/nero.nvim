@@ -17,3 +17,14 @@ vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>nohlsearch<CR>')
 -- set <ESC>
 vim.keymap.set({ 'n', 'i', 'v', 's', 'x', 'o', 'l', 't' }, '<C-j>', '<Esc>', { noremap = true, silent = true })
 vim.keymap.set('c', '<C-j>', '<C-c>', { noremap = true, silent = true })
+
+-- Execute lua
+-- TODO: put these to in after ft lua file
+vim.keymap.set('n', '<leader>x', function()
+  -- get current line
+  local line = vim.fn.getline '.'
+  -- execute current line for lua
+  vim.cmd('lua ' .. line)
+end, { desc = 'Execute the current line as Lua code' })
+
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Execute the current file' })
