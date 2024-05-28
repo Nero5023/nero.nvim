@@ -1,4 +1,4 @@
-vim.cmd 'source ~/.config/nvim-nero/lua/config/keymaps.vim'
+vim.cmd 'source lua/config/keymaps.vim'
 
 local set = vim.keymap.set
 
