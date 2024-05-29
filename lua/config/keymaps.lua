@@ -1,9 +1,21 @@
-vim.cmd("source " .. vim.fn.stdpath('config') .. "/lua/config/keymaps.vim")
+vim.cmd('source ' .. vim.fn.stdpath 'config' .. '/lua/config/keymaps.vim')
 
 local set = vim.keymap.set
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+
+-- Diagnostic keymaps
+set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- TIP: Disable arrow keys in normal mode
+set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Move focus between windows
 --  See `:help wincmd` for a list of all window commands
