@@ -27,6 +27,7 @@ return { -- Highlight, edit, and navigate code
       },
     },
   },
+  lazy = false,
   config = function(_, opts)
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
