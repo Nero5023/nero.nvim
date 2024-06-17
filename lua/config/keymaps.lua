@@ -17,6 +17,10 @@ set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- In insert mode, use <C-f> <C-b> to back and forth, so that we can not exit insert mode
+set('i', '<C-f>', '<Right>', { noremap = true, silent = true })
+set('i', '<C-b>', '<Left>', { noremap = true, silent = true })
+
 -- Move focus between windows
 --  See `:help wincmd` for a list of all window commands
 set('n', '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
