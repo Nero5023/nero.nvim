@@ -154,6 +154,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- set no rust map otherwise mapping [[, ]] will be defined in ftplugin
+vim.g.no_rust_maps = 1
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
