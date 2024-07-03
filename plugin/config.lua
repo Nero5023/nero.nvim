@@ -36,3 +36,12 @@ vim.api.nvim_create_autocmd('BufEnter', {
   pattern = '*',
   callback = auto_restore_win_view,
 })
+
+---- Set up code fold
+-- NOTE: There is a plugin can handle this: https://github.com/kevinhwang91/nvim-ufo
+--
+-- Set the folding method to 'expr'
+vim.opt.foldmethod = 'expr'
+-- Set the folding expression to use nvim-treesitter
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldlevel = 99 -- set a high level to open the fold of level 99 when opening a file by default
