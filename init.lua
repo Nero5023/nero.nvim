@@ -156,6 +156,7 @@ vim.opt.scrolloff = 10
 
 -- set no rust map otherwise mapping [[, ]] will be defined in ftplugin
 vim.g.no_rust_maps = 1
+vim.g.no_python_maps = 1
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
