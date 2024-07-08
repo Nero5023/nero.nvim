@@ -56,3 +56,7 @@ set('n', '<leader>xf', '<cmd>write<CR><cmd>source %<CR><cmd>nohlsearch<CR>', { d
 -- set("n", "<M-.>", "<c-w>5>")
 -- set("n", "<M-t>", "<C-W>+")
 -- set("n", "<M-s>", "<C-W>-")
+
+-- quickfix
+set('n', '[q', ':cprevious<CR>', { desc = 'Go to previous [Q]uickfix error message' })
+set('n', ']q', ':cnext<CR>', { desc = 'Go to next [Q]uickfix error message' })
