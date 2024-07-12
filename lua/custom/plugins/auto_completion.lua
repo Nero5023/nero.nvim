@@ -4,7 +4,8 @@ return { -- Autocompletion
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     {
-      'L3MON4D3/LuaSnip',
+      -- snippets
+      'L3MON4D3/LuaSnip', -- snippet engine
       build = (function()
         -- Build Step is needed for regex support in snippets.
         -- This step is not supported in many windows environments.
@@ -26,8 +27,9 @@ return { -- Autocompletion
         -- },
       },
     },
-    'saadparwaiz1/cmp_luasnip',
+    'saadparwaiz1/cmp_luasnip', -- snippet completions
 
+    -- cmp plugins
     -- Adds other completion capabilities.
     --  nvim-cmp does not ship with all sources by default. They are split
     --  into multiple repos for maintenance purposes.
