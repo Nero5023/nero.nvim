@@ -7,7 +7,11 @@ return {
   -- Optional dependency
   dependencies = { 'hrsh7th/nvim-cmp' },
   config = function()
-    require('nvim-autopairs').setup {}
+    -- hock on cmp to add close pair to it if possible
+    require('nvim-autopairs').setup {
+      -- set up fast wrap as default, press <M-e> to fast wrap
+      fast_wrap = {},
+    }
     -- If you want to automatically add `(` after selecting a function or method
     local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
     local cmp = require 'cmp'
