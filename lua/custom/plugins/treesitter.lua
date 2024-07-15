@@ -67,8 +67,32 @@ return { -- Highlight, edit, and navigate code
         -- and should return true or false
         include_surrounding_whitespace = true,
       },
+      move = {
+        enable = true,
+        goto_next_start = {
+          [']f'] = { query = '@function.outer', desc = 'Move to next [f]unction (start)' },
+          [']c'] = { query = '@class.outer', desc = 'Move to next [c]lass (start)' },
+          [']a'] = { query = '@parameter.inner', desc = 'Move to next [a]rgument (start)' },
+        },
+        goto_next_end = {
+          [']F'] = { query = '@function.outer', desc = 'Move to next [F]unction (end)' },
+          [']C'] = { query = '@class.outer', desc = 'Move to next [C]lass (end)' },
+          [']A'] = { query = '@parameter.inner', desc = 'Move to next [A]rgument (end)' },
+        },
+        goto_previous_start = {
+          ['[f'] = { query = '@function.outer', desc = 'Move to previous [f]unction (start)' },
+          ['[c'] = { query = '@class.outer', desc = 'Move to previous [c]lass (start)' },
+          ['[a'] = { query = '@parameter.inner', desc = 'Move to previous [a]rgument (start)' },
+        },
+        goto_previous_end = {
+          ['[F'] = { query = '@function.outer', desc = 'Move to previous [F]unction (end)' },
+          ['[C'] = { query = '@class.outer', desc = 'Move to previous [C]lass (end)' },
+          ['[A'] = { query = '@parameter.inner', desc = 'Move to previous [A]rgument (end)' },
+        },
+      },
     },
   },
+  -- ['ac'] = { query = '@class.outer', desc = 'Select ouput part of a lcass region' },
   lazy = false,
   config = function(_, opts)
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
