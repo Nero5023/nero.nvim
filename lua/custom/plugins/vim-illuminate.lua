@@ -31,6 +31,9 @@ return {
         map('[[', 'prev', buffer)
       end,
     })
+
+    -- toggle this plugin, since some cases in rust, it will hightlight the whole block of code
+    vim.keymap.set('n', '<leader>ti', ':IlluminateToggleBuf<CR>', { noremap = true, silent = true, desc = '[T]oggle [i]lluminate in buffer' })
   end,
   keys = {
     { ']]', desc = 'Next Reference' },
