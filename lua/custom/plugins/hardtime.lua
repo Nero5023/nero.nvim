@@ -5,4 +5,5 @@ return {
     -- Add these to disabled_filetypes
     disabled_filetypes = { 'qf', 'netrw', 'NvimTree', 'lazy', 'mason', 'oil' },
   },
+  enabled = false,
 }
