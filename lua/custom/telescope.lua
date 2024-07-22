@@ -20,7 +20,10 @@
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 
-require('telescope').setup {
+local telescope = require 'telescope'
+local lga_actions = require 'telescope-live-grep-args.actions'
+local actions = require 'telescope.actions'
+telescope.setup {
   -- You can put your default mappings / updates / etc. in here
   --  All the info you're looking for is in `:help telescope.setup()`
   --
@@ -32,7 +35,13 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-j>'] = require('telescope.actions').close,
+        ['<C-j>'] = actions.close,
+        -- freeze the current list and start a fuzzy search in the frozen list (search on search)
+        -- search on reuslts
+        ['<C-enter>'] = actions.to_fuzzy_refine,
+      },
+      n = {
+        ['<C-j>'] = actions.close,
       },
     },
   },
@@ -41,8 +50,27 @@ require('telescope').setup {
     ['ui-select'] = {
       require('telescope.themes').get_dropdown(),
     },
+    -- NOTE: maybe it can replaced by fzf-lua https://github.com/ibhagwan/fzf-lua
+    live_grep_args = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      -- define mappings, e.g.
+      mappings = { -- extend mappings
+        i = {
+          -- TODO: maybe write a self deinfed function to add qutoe, add -t, add --iglob, since
+          -- right now it will also qutoe for like "search-str" -tlua
+          --
+          -- Don't know why which-key not show up in grep when hitting <C-g>
+          -- g -> grep
+          ['<C-g><C-q>'] = lga_actions.quote_prompt(), -- grep quote
+          ['<C-g><C-t>'] = lga_actions.quote_prompt { postfix = ' -t' }, -- grep type
+          ['<C-g><C-i>'] = lga_actions.quote_prompt { postfix = ' --iglob ' }, -- grep iglob
+        },
+      },
+    },
   },
 }
+
+telescope.load_extension 'live_grep_args'
 
 -- Enable Telescope extensions if they are installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -138,7 +166,9 @@ local function live_grep()
   local opts = {
     cwd = path,
   }
-  builtin.live_grep(opts)
+  -- builtin.live_grep(opts)
+  -- use live_grep_args here for so that the prompt will be using rg: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
+  telescope.extensions.live_grep_args.live_grep_args(opts)
 end
 --#endregion
 
