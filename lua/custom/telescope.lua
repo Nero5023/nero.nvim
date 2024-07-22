@@ -39,9 +39,13 @@ telescope.setup {
         -- freeze the current list and start a fuzzy search in the frozen list (search on search)
         -- search on reuslts
         ['<C-enter>'] = actions.to_fuzzy_refine,
+        ['<C-s>'] = actions.select_horizontal,
+        ['<C-x>'] = false,
       },
       n = {
         ['<C-j>'] = actions.close,
+        ['<C-s>'] = actions.select_horizontal,
+        ['<C-x>'] = false,
       },
     },
   },
