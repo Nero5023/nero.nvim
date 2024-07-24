@@ -176,7 +176,8 @@ local function live_grep()
 end
 --#endregion
 
-vim.keymap.set('n', '<C-`>', function()
+-- we cannot map <C-`>, because it is an ASCII NUL (zero), we cannot map anyting to it
+vim.keymap.set('n', '<leader>`', function()
   set_search_path(vim.fn.getcwd())
 end, { desc = 'Reset telescope search path to project root (` -> ~ -> project root)' })
 
