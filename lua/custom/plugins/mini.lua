@@ -17,8 +17,9 @@ return { -- Collection of various small independent plugins/modules
     -- - cs)'  - [C]hange [S]urround  [)] [']
     require('mini.surround').setup {
       mappings = {
+        add = 'as',
         delete = 'ds',
-        replacee = 'cs',
+        replace = 'cs',
       },
     }
 
