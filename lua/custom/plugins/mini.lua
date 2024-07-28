@@ -2,6 +2,8 @@ return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
   config = function()
     -- Better Around/Inside textobjects
+    -- except buildin funciton [c/d]a[(/)/'/"] ..., it adds more like [c/d]a */<sapce>/f and more ...
+    -- same for 'i'
     --
     -- Examples:
     --  - va)  - [V]isually select [A]round [)]paren
