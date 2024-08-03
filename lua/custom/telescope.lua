@@ -46,6 +46,16 @@ telescope.setup {
         ['<C-j>'] = actions.close,
         ['<C-s>'] = actions.select_horizontal,
         ['<C-x>'] = false,
+        ['H'] = function()
+          -- Move to the beginning of the line in normal mode
+          -- simulate the user input here
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('^', true, false, true), 'n', true)
+        end,
+        ['L'] = function()
+          -- Move to the end of the line in normal mode
+          -- simulate the user input here
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('$', true, false, true), 'n', true)
+        end,
       },
     },
   },
