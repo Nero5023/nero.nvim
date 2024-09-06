@@ -111,23 +111,40 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
+--  Remove this option (vim.opt.clipboard = 'unnamedplus') if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
--- copying to the system clipboard using OSC 52.
--- for more details :h clipboard-osc52
--- It could be slow
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
-    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
-    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
-  },
-}
+if os.getenv 'SSH_TTY' == nil then
+  vim.opt.clipboard = 'unnamedplus'
+else
+  vim.opt.clipboard = 'unnamedplus'
+  -- copying to the system clipboard using OSC 52.
+  -- for more details :h clipboard-osc52
+  -- It could be slow
+
+  local function my_paste()
+    return {
+      vim.fn.split(vim.fn.getreg '', '\n'),
+      vim.fn.getregtype '',
+    }
+  end
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+      ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+    },
+    paste = {
+      -- Often get timeout using the following paste (y)
+      -- ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+      -- ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+      -- https://www.reddit.com/r/neovim/comments/1e9vllk/neovim_weird_issue_when_copypasting_using_osc_52/
+      -- Alghough I don't use wezterm, but it just use the normal paste, not using osc52
+      -- also we can replace my_paste with `function() end` to let nvim to handle it
+      ['+'] = my_paste,
+      ['*'] = my_paste,
+    },
+  }
+end
 
 -- Enable break indent
 vim.opt.breakindent = true
