@@ -57,6 +57,9 @@ cmp.setup {
       end
     end, { 'i', 's' }),
 
+    -- disable the default <C-e> binding which is cmp.mapping.abort()
+    ['<C-e>'] = cmp.config.disable,
+
     -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
     --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
   },
