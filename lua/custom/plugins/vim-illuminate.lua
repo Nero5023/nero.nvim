@@ -32,6 +32,12 @@ return {
       end,
     })
 
+    -- set up hightlight group
+    -- if we want to set with underline and some background color, we can set like this `vim.api.nvim_set_hl(0, 'IlluminatedWordText', { underline = true, bg = '#3c3836' })`
+    vim.api.nvim_set_hl(0, 'IlluminatedWordText', { bg = 'NvimDarkYellow' })
+    vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { bg = 'NvimDarkYellow' })
+    vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { bg = 'NvimDarkYellow' })
+
     -- toggle this plugin, since some cases in rust, it will hightlight the whole block of code
     vim.keymap.set('n', '<leader>ti', ':IlluminateToggleBuf<CR>', { noremap = true, silent = true, desc = '[T]oggle [i]lluminate in buffer' })
   end,
