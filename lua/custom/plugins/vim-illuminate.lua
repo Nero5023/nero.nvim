@@ -3,7 +3,11 @@
 -- instances.
 return {
   'RRethy/vim-illuminate',
-  -- event = 'LazyFile',
+  event = 'InsertEnter',
+  keys = {
+    { ']]', desc = 'Next Reference' },
+    { '[[', desc = 'Prev Reference' },
+  },
   opts = {
     delay = 200,
     large_file_cutoff = 2000,
@@ -41,8 +45,4 @@ return {
     -- toggle this plugin, since some cases in rust, it will hightlight the whole block of code
     vim.keymap.set('n', '<leader>ti', ':IlluminateToggleBuf<CR>', { noremap = true, silent = true, desc = '[T]oggle [i]lluminate in buffer' })
   end,
-  keys = {
-    { ']]', desc = 'Next Reference' },
-    { '[[', desc = 'Prev Reference' },
-  },
 }
