@@ -5,6 +5,13 @@ return {
   config = function()
     -- Set up rust analyzer path
     vim.g.rustaceanvim = {
+      tools = {
+        float_win_config = {
+          -- https://github.com/mrcjkb/rustaceanvim/discussions/391
+          -- rustaceanvim overrides the textDocument/hover, so need to set hover border here
+          border = 'rounded',
+        },
+      },
       server = {
         cmd = function()
           local mason_registry = require 'mason-registry'

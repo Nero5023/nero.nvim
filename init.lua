@@ -182,6 +182,17 @@ vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
+-- set border for diagnostic flot window and lsp hover.
+-- There is another optionn, is we set another cursorline color, and make following just bordless
+vim.diagnostic.config {
+  float = {
+    border = 'rounded', -- options: 'single', 'double', 'rounded', 'solid', 'shadow'
+  },
+}
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'rounded', -- options: 'single', 'double', 'rounded', 'solid', 'shadow'
+})
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
