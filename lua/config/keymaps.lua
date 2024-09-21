@@ -33,7 +33,18 @@ vim.opt.hlsearch = true
 set({ 'n', 'v' }, '<C-h>', '<cmd>nohlsearch<CR>')
 
 -- set <ESC>
-set({ 'n', 'i', 'v', 's', 'x', 'o', 'l', 't' }, '<C-j>', '<Esc>', { noremap = true, silent = true })
+set({ 'i', 'v', 's', 'x', 'o', 'l', 't' }, '<C-j>', '<Esc>', { noremap = true, silent = true })
+-- this map is useful in normal mode to close the opened float window,  like hover, diagnostic, code action, etc.
+set('n', '<C-j>', function()
+  if not vim.bo.modifiable and #vim.api.nvim_list_wins() > 1 then
+    -- if buffer is modifiable and there is more than one window, send `<C-w>c` to close the window
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>c', true, false, true), 'n', true)
+  else
+    -- else, just send <Esc>
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
+  end
+end, { noremap = true, silent = true })
+-- set <c-j> in commannd mode to <C-c>
 set('c', '<C-j>', '<C-c>', { noremap = true, silent = true })
 
 -- Execute lua
