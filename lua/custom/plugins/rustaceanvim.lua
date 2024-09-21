@@ -3,8 +3,8 @@ return {
   version = '^4', -- Recommended
   lazy = false, -- This plugin is already lazy
   config = function()
-    -- Set up rust analyzer path
     vim.g.rustaceanvim = {
+      -- the related keymaps are set at after/ftplugin/rust.lua
       tools = {
         float_win_config = {
           -- https://github.com/mrcjkb/rustaceanvim/discussions/391
@@ -13,6 +13,7 @@ return {
         },
       },
       server = {
+        -- Set up rust analyzer path
         cmd = function()
           local mason_registry = require 'mason-registry'
           local ra_binary = mason_registry.is_installed 'rust-analyzer'
