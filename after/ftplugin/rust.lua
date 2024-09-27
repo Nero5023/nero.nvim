@@ -20,4 +20,8 @@ vim.keymap.set('n', '<leader>rp', function()
   vim.cmd.RustLsp 'parentModule'
 end, { silent = true, desc = '[R]ust [p]arentModule (Go to the parent module)' })
 
+vim.keymap.set('n', '<leader>rr', function()
+  vim.cmd.RustLsp 'run'
+end, { silent = true, desc = '[R]ust [r]un' })
+
 vim.lsp.inlay_hint.enable(true)
