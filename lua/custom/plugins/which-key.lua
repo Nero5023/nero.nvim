@@ -30,6 +30,7 @@ return { -- Useful plugin to show you pending keybinds.
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = '[H]arpoon' },
         { '<leader>x', group = 'E[x]ecute' },
+        { '<leader>v', group = 'Neo[v]im' },
         -- { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     }

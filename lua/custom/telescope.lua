@@ -231,6 +231,14 @@ vim.keymap.set('n', '<leader>s/', function()
 end, { desc = '[S]earch [/] in Open Files' })
 
 -- Shortcut for searching your Neovim configuration files
-vim.keymap.set('n', '<leader>sn', function()
+vim.keymap.set('n', '<leader>vf', function()
   builtin.find_files { cwd = vim.fn.stdpath 'config' }
-end, { desc = '[S]earch [N]eovim files' })
+end, { desc = 'search neo[v]im [f]iles' })
+
+vim.keymap.set('n', '<leader>vp', function()
+  local data_path = vim.fn.stdpath 'data'
+  builtin.find_files {
+    ---@diagnostic disable-next-line: param-type-mismatch
+    cwd = vim.fs.joinpath(data_path, 'lazy'),
+  }
+end, { desc = 'search neo[v]im [f]iles' })
