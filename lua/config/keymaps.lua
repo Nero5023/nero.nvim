@@ -58,7 +58,8 @@ end, { desc = 'Execute the current line as Lua code' })
 
 -- Don't know why this will highlight the string "key", so add nohlsearch he
 -- set('n', '<leader>xf', '<cmd>source %<CR>', { desc = 'Execute the current file' })
-set('n', '<leader>xf', '<cmd>write<CR><cmd>source %<CR><cmd>nohlsearch<CR>', { desc = 'Execute the current file' })
+set('n', '<leader>xf', '<cmd>write<CR><cmd>source %<CR><cmd>nohlsearch<CR>', { desc = 'Execute the current lua file' })
+set('v', '<leader>xl', ':lua<CR>', { desc = 'Execute the selection block of lua' })
 
 -- , is <  . is > on the keyboard. t -> tall, s -> short
 -- can find better way to adjust the window size
