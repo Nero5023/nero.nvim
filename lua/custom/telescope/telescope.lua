@@ -175,6 +175,9 @@ local function grep_string()
   builtin.grep_string(opts)
 end
 
+-----------------------------------------------------------------
+-- Potential grep methods
+-----------------------------------------------------------------
 local function live_grep()
   local path = setup_telescope_search_path()
   local opts = {
@@ -185,6 +188,14 @@ local function live_grep()
   telescope.extensions.live_grep_args.live_grep_args(opts)
 end
 
+local function multi_grep()
+  local path = setup_telescope_search_path()
+  local opts = {
+    cwd = path,
+  }
+  require('custom.telescope.multigrep').live_multigrep(opts)
+end
+
 local function builtin_live_grep()
   local path = setup_telescope_search_path()
   local opts = {
@@ -193,6 +204,7 @@ local function builtin_live_grep()
   builtin.live_grep(opts)
 end
 --#endregion
+-----------------------------------------------------------------
 
 -- we cannot map <C-`>, because it is an ASCII NUL (zero), we cannot map anyting to it
 vim.keymap.set('n', '<leader>`', function()
@@ -204,7 +216,8 @@ vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps'
 vim.keymap.set('n', '<leader>sf', find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>sw', grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', builtin_live_grep, { desc = '[S]earch by [G]rep' })
+-- vim.keymap.set('n', '<leader>sg', builtin_live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sg', multi_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
