@@ -59,6 +59,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
-    require 'custom.telescope'
+    require 'custom.telescope.telescope'
   end,
 }
