@@ -248,6 +248,12 @@ vim.keymap.set('n', '<leader>vf', function()
   builtin.find_files { cwd = vim.fn.stdpath 'config' }
 end, { desc = 'search neo[v]im [f]iles' })
 
+vim.keymap.set('n', '<leader>vg', function()
+  require('custom.telescope.multigrep').live_multigrep {
+    cmd = vim.fn.stdpath 'config',
+  }
+end, { desc = 'search neo[v]im files [g]rep' })
+
 vim.keymap.set('n', '<leader>vp', function()
   local data_path = vim.fn.stdpath 'data'
   builtin.find_files {
