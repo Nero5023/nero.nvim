@@ -3,6 +3,15 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 luasnip.config.setup {}
 
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers['signature_help'], {
+  border = 'rounded', -- set border style
+  close_events = { -- set events that will close the signatureHelp window
+    'CursorMoved', --  when cursor moved 光标移动时
+    'BufHidden', -- when buffer hidden
+    'InsertCharPre', -- before insert character
+  },
+})
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -38,6 +47,11 @@ cmp.setup {
     --  completions whenever it has completion options available.
     ['<C-Space>'] = cmp.mapping.complete {},
 
+    -- Show signature_help float window
+    ['<C-k>'] = cmp.mapping(function()
+      vim.lsp.buf.signature_help()
+    end, { 'i', 's' }),
+
     -- Think of <c-l> as moving to the right of your snippet expansion.
     --  So if you have a snippet that's like:
     --  function $name($args)
@@ -68,6 +82,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'nvim_lsp_signature_help' },
   }, {
     { name = 'buffer' },
   }),

@@ -1,4 +1,5 @@
 return { -- Autocompletion
+  --TODO: replace with blink.nvim https://github.com/Saghen/blink.cmp
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
   dependencies = {
@@ -43,6 +44,7 @@ return { -- Autocompletion
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
   },
   config = function()
     -- See `:help cmp`
