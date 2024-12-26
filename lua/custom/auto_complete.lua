@@ -78,14 +78,20 @@ cmp.setup {
     --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
   },
   -- cmp.config.sources({ {1}, {2} }), only after we run out of suggesion in {1} will we start to use {2}
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'path' },
-    { name = 'nvim_lsp_signature_help' },
-  }, {
-    { name = 'buffer' },
-  }),
+  -- {1}, {2} is the group_index here
+  -- for more details see docs: https://github.com/hrsh7th/nvim-cmp/blob/b555203ce4bd7ff6192e759af3362f9d217e8c89/doc/cmp.txt#L642-L666
+  sources = cmp.config.sources {
+    {
+      name = 'lazydev',
+      group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+    },
+
+    { name = 'nvim_lsp', group_index = 1 },
+    { name = 'luasnip', group_index = 1 },
+    { name = 'path', group_index = 1 },
+    { name = 'nvim_lsp_signature_help', group_index = 1 },
+    { name = 'buffer', group_index = 2 },
+  },
 }
 
 -- cmdline setup
