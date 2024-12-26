@@ -24,6 +24,11 @@ return { -- Autocompletion
           'rafamadriz/friendly-snippets',
           config = function()
             require('luasnip.loaders.from_vscode').lazy_load()
+            -- friendly-snippets - enable standardized comments snippets
+            require('luasnip').filetype_extend('lua', { 'luadoc' })
+            require('luasnip').filetype_extend('python', { 'pydoc' })
+            require('luasnip').filetype_extend('rust', { 'rustdoc' })
+            require('luasnip').filetype_extend('sh', { 'shelldoc' })
           end,
         },
       },
