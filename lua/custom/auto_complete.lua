@@ -3,6 +3,7 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 luasnip.config.setup {}
 
+-- or we can use https://github.com/ray-x/lsp_signature.nvim
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers['signature_help'], {
   border = 'rounded', -- set border style
   close_events = { -- set events that will close the signatureHelp window
