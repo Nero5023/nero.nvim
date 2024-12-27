@@ -250,7 +250,7 @@ end, { desc = 'search neo[v]im [f]iles' })
 
 vim.keymap.set('n', '<leader>vg', function()
   require('custom.telescope.multigrep').live_multigrep {
-    cmd = vim.fn.stdpath 'config',
+    cwd = vim.fn.stdpath 'config',
   }
 end, { desc = 'search neo[v]im files [g]rep' })
 
