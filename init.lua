@@ -188,6 +188,7 @@ vim.diagnostic.config {
   float = {
     border = 'rounded', -- options: 'single', 'double', 'rounded', 'solid', 'shadow'
   },
+  virtual_text = true,
 }
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'rounded', -- options: 'single', 'double', 'rounded', 'solid', 'shadow'
