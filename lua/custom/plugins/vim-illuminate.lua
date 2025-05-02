@@ -3,7 +3,7 @@
 -- instances.
 return {
   'RRethy/vim-illuminate',
-  event = 'InsertEnter',
+  event = 'LspAttach',
   keys = {
     { ']]', desc = 'Next Reference' },
     { '[[', desc = 'Prev Reference' },
