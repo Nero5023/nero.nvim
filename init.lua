@@ -191,9 +191,6 @@ vim.diagnostic.config {
   -- The virtual text diagnostics becomes redundant when we use the lsp_lines plugin
   -- virtual_text = true,
 }
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded', -- options: 'single', 'double', 'rounded', 'solid', 'shadow'
-})
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
