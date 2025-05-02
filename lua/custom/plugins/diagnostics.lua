@@ -3,6 +3,8 @@ return {
   'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
   config = function()
     require('lsp_lines').setup()
+    vim.diagnostic.config { virtual_lines = true }
+    vim.keymap.set('', '<Leader>td', require('lsp_lines').toggle, { desc = '[T]oggle lsp_lines [d]iagnostic' })
   end,
   event = 'LspAttach',
 }
