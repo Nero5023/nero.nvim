@@ -17,7 +17,7 @@ return {
         cmd = function()
           local ra_binary = nil
           if vim.fn.executable 'rust-analyzer' == 1 then
-            ra_binary = 'ra_binary'
+            ra_binary = 'rust-analyzer'
           else
             local mason_registry = require 'mason-registry'
             ra_binary = mason_registry.is_installed 'rust-analyzer' and vim.env.MASON .. '/bin/' .. 'rust-analyzer'
