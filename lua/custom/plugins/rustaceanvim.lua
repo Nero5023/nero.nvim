@@ -1,3 +1,7 @@
+local function realpath(path)
+  return vim.fn.resolve(vim.fn.fnamemodify(path, ':p'))
+end
+
 return {
   'mrcjkb/rustaceanvim',
   version = '^6', -- Recommended
@@ -15,12 +19,12 @@ return {
       server = {
         -- Set up rust analyzer path
         cmd = function()
-          local ra_binary = nil
-          if vim.fn.executable 'rust-analyzer' == 1 then
-            ra_binary = 'rust-analyzer'
-          else
-            local mason_registry = require 'mason-registry'
-            ra_binary = mason_registry.is_installed 'rust-analyzer' and vim.env.MASON .. '/bin/' .. 'rust-analyzer'
+          -- we don't use the mason binary here
+          local ra_binary = 'rust-analyzer'
+          local cwd = realpath(vim.fn.getcwd())
+          local fbsource_prefix = realpath(vim.fn.expand '~/fbsource')
+          if cwd:match('^' .. fbsource_prefix) then
+            ra_binary = fbsource_prefix .. 'xplat/tools/rust-analyzer-proxy/rust-analyzer-proxy'
           end
 
           return { ra_binary } -- You can add args to the list, such as '--log-file'
