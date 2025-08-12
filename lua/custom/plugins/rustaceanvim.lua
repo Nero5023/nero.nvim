@@ -24,7 +24,7 @@ return {
           local cwd = realpath(vim.fn.getcwd())
           local fbsource_prefix = realpath(vim.fn.expand '~/fbsource')
           if cwd:match('^' .. fbsource_prefix) then
-            ra_binary = fbsource_prefix .. 'xplat/tools/rust-analyzer-proxy/rust-analyzer-proxy'
+            ra_binary = fbsource_prefix .. 'xplat/tools/rust-analyzer/rust-analyzer'
           end
 
           return { ra_binary } -- You can add args to the list, such as '--log-file'
