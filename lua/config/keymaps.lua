@@ -21,12 +21,12 @@ set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 set('i', '<C-f>', '<Right>', { noremap = true, silent = true })
 set('i', '<C-b>', '<Left>', { noremap = true, silent = true })
 
--- Move focus between windows
+-- Move focus between windows (handled by smart-splits for Zellij integration)
 --  See `:help wincmd` for a list of all window commands
-set('n', '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-set('n', '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-set('n', '<M-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-set('n', '<M-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- set('n', '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+-- set('n', '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+-- set('n', '<M-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+-- set('n', '<M-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Set highlight on search, but clear on pressing <C-h> in normal mode
 vim.opt.hlsearch = true
