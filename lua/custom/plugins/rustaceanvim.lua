@@ -1,5 +1,7 @@
 local function realpath(path)
-  return vim.fn.resolve(vim.fn.fnamemodify(path, ':p'))
+  local resolved = vim.fn.resolve(vim.fn.fnamemodify(path, ':p'))
+  -- strip trailing slash for consistent concatenation
+  return resolved:gsub('/$', '')
 end
 
 return {
@@ -24,7 +26,7 @@ return {
           local cwd = realpath(vim.fn.getcwd())
           local fbsource_prefix = realpath(vim.fn.expand '~/fbsource')
           if cwd:match('^' .. fbsource_prefix) then
-            ra_binary = fbsource_prefix .. 'xplat/tools/rust-analyzer/rust-analyzer'
+            ra_binary = fbsource_prefix .. '/xplat/tools/rust-analyzer/rust-analyzer'
           end
 
           return { ra_binary } -- You can add args to the list, such as '--log-file'
