@@ -113,13 +113,34 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option (vim.opt.clipboard = 'unnamedplus') if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-if os.getenv 'SSH_TTY' == nil then
-  vim.opt.clipboard = 'unnamedplus'
-else
-  vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamedplus'
+
+---Is the OS clipboard reachable from *this* machine?
+---On a devserver it isn't: no $DISPLAY, no xclip/xsel/pbcopy, and the terminal
+---lives on another host — the only way out is OSC 52.
+local function has_native_clipboard()
+  if vim.fn.has 'mac' == 1 then
+    return true
+  end
+  if vim.env.WAYLAND_DISPLAY and vim.fn.executable 'wl-copy' == 1 then
+    return true
+  end
+  if vim.env.DISPLAY and (vim.fn.executable 'xclip' == 1 or vim.fn.executable 'xsel' == 1) then
+    return true
+  end
+  return false
+end
+
+if not has_native_clipboard() then
   -- copying to the system clipboard using OSC 52.
   -- for more details :h clipboard-osc52
   -- It could be slow
+  --
+  -- This must be set explicitly. Nvim's own OSC 52 fallback is skipped whenever
+  -- 'clipboard' is non-empty (runtime/autoload/provider/clipboard.vim), so with
+  -- `unnamedplus` and no provider every yank silently goes nowhere. Detecting
+  -- "remote" via $SSH_TTY doesn't work here either: zellij panes inherit the
+  -- zellij *server's* environment, which has no SSH_TTY.
 
   local function my_paste()
     return {
