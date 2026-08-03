@@ -5,6 +5,10 @@
 --   commit marked `@`. <CR> opens that commit's diff in Diffview via
 --   `:DiffviewOpen <hash>^::<hash>`; <C-]> checks it out (`sl goto`).
 --
+-- :SlCommit / <leader>gc  same diff, but for the commit you're already on — no
+--   picker step. Distinct from <leader>gd (`:DiffviewOpen`), which diffs the
+--   *working copy* against the current commit rather than the commit itself.
+--
 -- Inside a single-commit Diffview, `]s` / `[s` (wired from diffview.lua) jump to
 -- the next/prev commit in the stack by reopening Diffview for the neighbour.
 --
@@ -83,6 +87,19 @@ local function diff_commit(node)
   vim.cmd("DiffviewOpen " .. node .. "^::" .. node)
 end
 
+---Diff the commit you're currently on, skipping the picker.
+--- `.` is resolved to a hash rather than passed through as `.^::.` so the view's
+--- `right.commit` is a real node — that's what `]s`/`[s` read to walk the stack.
+function M.diff_current_commit()
+  local code, out = sl_lines { "log", "-r", ".", "-T", "{node}" }
+  local node = vim.trim(out[1] or "")
+  if code ~= 0 or node == "" then
+    vim.notify("[sl-stack] Cannot resolve `.`: " .. table.concat(out, " "), vim.log.levels.ERROR)
+    return
+  end
+  diff_commit(node)
+end
+
 function M.open_picker()
   local ok, pickers = pcall(require, "telescope.pickers")
   if not ok then
@@ -124,9 +141,18 @@ function M.open_picker()
       },
       sorter = conf.generic_sorter {},
       previewer = previewers.new_termopen_previewer {
-        -- termopen runs in a pty, so `sl show` auto-colorizes the diff.
+        -- Lead with the commit message (title + Summary/Test Plan), then the
+        -- diff. termopen runs in a pty, so `sl diff` auto-colorizes. `node` is a
+        -- 40-hex hash, so interpolating it into `sh -c` is safe.
         get_command = function(entry)
-          return { "sl", "show", entry.value.node }
+          local node = entry.value.node
+          return {
+            "sh",
+            "-c",
+            "sl log -r " .. node .. " -T '{desc}\\n'; "
+              .. "printf '\\n──────────────── diff ────────────────\\n\\n'; "
+              .. "sl diff -c " .. node,
+          }
         end,
       },
       attach_mappings = function(prompt_bufnr, map)
@@ -243,7 +269,14 @@ vim.api.nvim_create_user_command(
   { desc = "Telescope picker of the current Sapling stack; <CR> opens the commit in Diffview" }
 )
 
+vim.api.nvim_create_user_command(
+  "SlCommit",
+  M.diff_current_commit,
+  { desc = "Diffview of the current commit's own changes (`sl log -r .`)" }
+)
+
 vim.keymap.set("n", "<leader>gs", M.open_picker, { desc = "[G]it [S]tack (Sapling) -> Diffview" })
+vim.keymap.set("n", "<leader>gc", M.diff_current_commit, { desc = "[G]it current [C]ommit changes -> Diffview" })
 
 -- Register as a lazy.nvim "virtual" local plugin so the custom.plugins importer
 -- picks this file up without fetching anything from the network.
