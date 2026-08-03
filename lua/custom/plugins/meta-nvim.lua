@@ -118,7 +118,28 @@ return {
     end, { nargs = 0 })
     --#endregion
 
-    -- set up quickfix make cmd for buck2
+    -- set up quickfix make cmd for starlark
+    vim.api.nvim_create_user_command('MakeStarlark', function()
+      vim.opt.makeprg = 'arc rust-check fbcode//buck2/starlark-rust/starlark/...'
+
+      local output = vim.fn.system 'hg root'
+      if vim.v.shell_error ~= 0 then
+        print('error running `hg root`: ' .. output)
+        return
+      end
+      local hg_root = output
+      local original_crwd = vim.fn.getcwd()
+
+      -- go to the hg root to fix relative path issue in quickfix
+      vim.cmd('lcd ' .. hg_root)
+
+      vim.cmd 'make'
+
+      -- reset dir
+      vim.cmd('lcd ' .. original_crwd)
+    end, { nargs = 0 })
+
+    -- set up quickfix make cmd for current file
     vim.api.nvim_create_user_command('MakeCurrent', function()
       -- get the absolute path of the current buffer
       local file_path = vim.fn.expand '%:p'
