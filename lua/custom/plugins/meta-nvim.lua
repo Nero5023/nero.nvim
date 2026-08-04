@@ -4,7 +4,13 @@ return {
   dir = dir,
   name = 'meta.nvim',
   dependencies = {
-    'jose-elias-alvarez/null-ls.nvim',
+    -- meta/init.lua requires `meta.null-ls` unconditionally, which requires
+    -- `null-ls.logger` — so without this plugin the whole meta.nvim config
+    -- fails, not just the linters. The original jose-elias-alvarez/null-ls.nvim
+    -- is gone from GitHub; none-ls is the maintained fork and still provides
+    -- the `null-ls` module, which is also what meta.nvim's own specs now depend
+    -- on (see meta/lazyvim.lua and meta/extras/null-ls/arclint.lua).
+    'nvimtools/none-ls.nvim',
   },
   config = function()
     require('meta').setup()
