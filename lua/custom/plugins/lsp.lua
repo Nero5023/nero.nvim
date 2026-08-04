@@ -159,10 +159,16 @@ return { -- LSP Configuration & Plugins
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+    -- Meta devservers are named `devvm<n>.<region>.facebook.com`. Both halves of
+    -- the test matter: the prefix catches a short hostname, the suffix catches
+    -- other Meta-managed hosts (ODs, sandcastle) that aren't `devvm*`.
+    local hostname = vim.fn.hostname()
+    local on_meta_host = hostname:match '^devvm' ~= nil or hostname:match '%.facebook%.com$' ~= nil
+
     local servers = {
       -- clangd = {},
       -- gopls = {},
-      pyright = {},
+      -- pyright: added below, but only off a Meta host.
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
@@ -188,6 +194,15 @@ return { -- LSP Configuration & Plugins
         },
       },
     }
+
+    -- On a Meta host Python is served by pyre@meta / pyls@meta (enabled in
+    -- meta-nvim.lua), so pyright is redundant there — and mason can't install it
+    -- anyway, since the npm registry isn't reachable through fwdproxy. Leaving
+    -- it in `servers` would fail twice: once on install, then again when
+    -- mason-lspconfig tries to start a binary that isn't there.
+    if not on_meta_host then
+      servers.pyright = {}
+    end
 
     -- Ensure the servers and tools above are installed
     --  To check the current status of installed tools and/or manually install
