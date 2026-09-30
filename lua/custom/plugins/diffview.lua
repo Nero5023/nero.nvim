@@ -92,7 +92,7 @@ return { -- Single tabpage interface for cycling through diffs, file history, an
   'sindrets/diffview.nvim',
   -- Use the local clone so we can hack on sl/hg (Sapling) support directly.
   -- lazy.nvim treats `dir` as a local plugin and skips fetching from git.
-  dir = '/home/nero/local_dev/diffview.nvim',
+  dir = vim.fn.has('mac') == 1 and '/Users/nero/local_dev/tools/diffview_sl.nvim' or '/home/nero/local_dev/diffview.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   -- Load only when a Diffview command is invoked; keeps startup fast since
   -- diffing is an on-demand workflow rather than something needed at boot.
