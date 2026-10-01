@@ -8,7 +8,10 @@
 return { -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
-  branch = '0.1.x',
+  -- pinned release, as the README recommends pinning a tag. Not the 0.1.x branch:
+  -- its LSP pickers call make_position_params() without an encoding, which warns
+  -- on every `gd` since nvim 0.11 (fixed in v0.1.9+, #3368)
+  version = 'v0.2.2',
   dependencies = {
     'nvim-lua/plenary.nvim',
     { -- If encountering errors, see telescope-fzf-native README for installation instructions

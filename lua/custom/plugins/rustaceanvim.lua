@@ -18,6 +18,12 @@ return {
           border = 'rounded',
         },
       },
+      dap = {
+        -- on attach, rustaceanvim fetches runnables and assumes each has cargoArgs;
+        -- Meta's buck-based rust-analyzer returns runnables without them, which
+        -- errors (debuggables.lua: index field 'cargoArgs') on every new buffer
+        autoload_configurations = false,
+      },
       server = {
         -- Set up rust analyzer path
         cmd = function()
